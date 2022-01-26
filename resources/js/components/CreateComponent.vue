@@ -34,11 +34,19 @@ export default {
             job: null,
             obj: {
                 color: 'red',
-                number: 20,
+                number: 2,
                 isPublished: true
             }
         }
     },
+
+    mounted() {
+        console.log(this.numbers)
+        this.obj.number = this.numbers
+    },
+
+    props: ['numbers'],
+
     methods: {
         addPerson() {
             axios.post('api/people', {name: this.name, age: this.age, job: this.job})

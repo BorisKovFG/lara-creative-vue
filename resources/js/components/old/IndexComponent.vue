@@ -11,16 +11,22 @@
             </tr>
             </thead>
             <tbody>
-            <template v-for="person in people">
+            <template v-for="(person, key) in people">
                 <tr :class="(!isEditId(person.id)) ? '' : 'd-none'">
-                    <th scope="row">{{ person.id }}</th>
+                    <th scope="row">{{ key + 1 }}</th>
                     <td>{{ person.name }}</td>
                     <td>{{ person.age }}</td>
                     <td>{{ person.job }}</td>
                     <td><a href="#" @click.prevent="changeEditPersonById(person)" class="btn btn-success">Edit</a></td>
                     <td><a href="#" @click.prevent="deletePersonById(person.id)" class="btn btn-danger">Delete</a></td>
                 </tr>
-                <EditComponent :ref="`edit_${person.id}`" :person="person"></EditComponent>
+                <tr :class="(isEditId(person.id)) ? '' : 'd-none'">
+                    <th scope="row">{{ key + 1 }}</th>
+                    <td><input type="text" v-model="name" class="form-control"></td>
+                    <td><input type="number" v-model="age" class="form-control"></td>
+                    <td><input type="text" v-model="job" class="form-control"></td>
+                    <td><a href="#" @click.prevent="updatePerson(person.id)" class="btn btn-success">Update</a></td>
+                </tr>
             </template>
             </tbody>
         </table>
@@ -28,12 +34,9 @@
 </template>
 
 <script>
-import EditComponent from "./EditComponent";
 export default {
     name: "IndexComponent",
-    components: {
-        EditComponent
-    },
+    components: {},
 
     data() {
         return {
@@ -68,10 +71,9 @@ export default {
         },
         changeEditPersonById(person) {
             this.editedPerson = person.id
-            let edit = `edit_${person.id}` // when dynamic name we use [] without .
-            this.$refs[edit][0].name = person.name
-            this.$refs[edit][0].age = person.age
-            this.$refs[edit][0].job = person.job
+            this.name = person.name
+            this.age = person.age
+            this.job = person.job
         },
 
         deletePersonById(id) {

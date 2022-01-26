@@ -1,6 +1,6 @@
 <template>
 <div>
-    <CreateComponent></CreateComponent>
+    <CreateComponent :numbers="numbers"></CreateComponent>
     <IndexComponent ref="index"></IndexComponent>
 </div>
 </template>
@@ -15,7 +15,13 @@ export default {
         IndexComponent
     },
     mounted() {
-        console.log(this.$refs.index.someMethod());
+        this.$refs.index.someMethod();
+    },
+    data() {
+        return {
+            numbers: 12
+            // numberOfPeople: this.$refs.index.getCountOfPeople()
+        }
     },
 
     methods: {

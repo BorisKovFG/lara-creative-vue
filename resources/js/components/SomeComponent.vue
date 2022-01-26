@@ -4,7 +4,7 @@
         <div>
             Testing transferring data with array
             <div>Color: {{ obj.color }}</div>
-            <div>Number: {{ obj.number ? 'more 10' : 'les 10' }}</div>
+            <div>Number: {{ obj.number > 10 ? 'more 10' : 'less 10' }}</div>
             <div>Published: {{ obj.isPublished ? 'Yes, it\'s a published' : 'No, it\'s not published' }}</div>
         </div>
     </div>
