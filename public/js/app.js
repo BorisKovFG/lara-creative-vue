@@ -5389,6 +5389,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "IndexComponent",
   components: {},
@@ -5421,7 +5423,8 @@ __webpack_require__.r(__webpack_exports__);
         age: this.age,
         job: this.job
       }).then(function (res) {
-        _this2.getPeople();
+        _this2.getPeople(); // update list with people
+
       }); // ` it is not '
     },
     changeEditPersonById: function changeEditPersonById(person) {
@@ -5429,6 +5432,14 @@ __webpack_require__.r(__webpack_exports__);
       this.name = person.name;
       this.age = person.age;
       this.job = person.job;
+    },
+    deletePersonById: function deletePersonById(id) {
+      var _this3 = this;
+
+      axios["delete"]("/api/people/".concat(id)).then(function (res) {
+        _this3.getPeople(); // update list with people
+
+      });
     },
     isEditId: function isEditId(id) {
       return this.editedPerson === id;
@@ -28505,6 +28516,23 @@ var render = function () {
                     [_vm._v("Edit")]
                   ),
                 ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.deletePersonById(person.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Delete")]
+                  ),
+                ]),
               ]),
               _vm._v(" "),
               _c("tr", { class: _vm.isEditId(person.id) ? "" : "d-none" }, [
@@ -28623,6 +28651,10 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Age:")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Job:")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col", colspan: "2" } }, [
+          _vm._v("Actions:"),
+        ]),
       ]),
     ])
   },

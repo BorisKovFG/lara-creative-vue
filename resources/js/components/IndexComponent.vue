@@ -7,6 +7,7 @@
                 <th scope="col">Name:</th>
                 <th scope="col">Age:</th>
                 <th scope="col">Job:</th>
+                <th scope="col" colspan="2">Actions:</th>
             </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                     <td>{{ person.age }}</td>
                     <td>{{ person.job }}</td>
                     <td><a href="#" @click.prevent="changeEditPersonById(person)" class="btn btn-success">Edit</a></td>
+                    <td><a href="#" @click.prevent="deletePersonById(person.id)" class="btn btn-danger">Delete</a></td>
 
                 </tr>
                 <tr :class="(isEditId(person.id)) ? '' : 'd-none'">
@@ -55,22 +57,29 @@ export default {
     methods: {
         getPeople() {
             axios.get('/api/people')
-            .then(res => {
-                this.people = res.data
-            })
+                .then(res => {
+                    this.people = res.data
+                })
         },
         updatePerson(id) {
             this.editedPerson = null;
-            axios.patch(`/api/people/${id}`, {name: this.name, age: this.age, job: this.job })
-            .then(res => {
-                this.getPeople()
-            })// ` it is not '
+            axios.patch(`/api/people/${id}`, {name: this.name, age: this.age, job: this.job})
+                .then(res => {
+                    this.getPeople() // update list with people
+                })// ` it is not '
         },
         changeEditPersonById(person) {
             this.editedPerson = person.id
             this.name = person.name
             this.age = person.age
             this.job = person.job
+        },
+
+        deletePersonById(id) {
+            axios.delete(`/api/people/${id}`)
+            .then(res =>{
+                this.getPeople(); // update list with people
+            })
         },
 
         isEditId(id) {
