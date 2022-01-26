@@ -10,13 +10,21 @@
             <input type="text" class="form-control" v-model="job" id="job" placeholder="Job:">
         </div>
         <input @click.prevent="addPerson" class="btn btn-primary" value="Add">
+        <!--        bad practice to migrate vars without object-->
+        <!--        <SomeComponent color="Red" number="10" is-published="true"></SomeComponent>-->
+        <!--        it is better:-->
+        <SomeComponent :obj=obj></SomeComponent>
+
     </div>
 </template>
 
 <script>
+import SomeComponent from "./SomeComponent";
+
 export default {
     name: "CreateComponent",
     components: {
+        SomeComponent,
     },
 
     data() {
@@ -24,6 +32,11 @@ export default {
             name: null,
             age: null,
             job: null,
+            obj: {
+                color: 'red',
+                number: 20,
+                isPublished: true
+            }
         }
     },
     methods: {
