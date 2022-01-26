@@ -51,7 +51,8 @@ export default {
     },
 
     mounted() {
-        this.getPeople()
+        this.getPeople();
+        this.$parent.parentHelloWorld()
     },
 
     methods: {
@@ -84,6 +85,10 @@ export default {
 
         isEditId(id) {
             return this.editedPerson === id
+        },
+
+        someMethod() {
+            console.log("Hello, World!");
         }
     }
 

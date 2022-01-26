@@ -1,7 +1,7 @@
 <template>
 <div>
     <CreateComponent></CreateComponent>
-    <IndexComponent></IndexComponent>
+    <IndexComponent ref="index"></IndexComponent>
 </div>
 </template>
 
@@ -14,7 +14,15 @@ export default {
         CreateComponent,
         IndexComponent
     },
+    mounted() {
+        console.log(this.$refs.index.someMethod());
+    },
 
+    methods: {
+      parentHelloWorld() {
+          console.log('Hello, World, from parent component!')
+      }
+    }
 }
 </script>
 

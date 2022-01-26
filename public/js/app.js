@@ -5299,6 +5299,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.name = null;
         _this.age = null;
         _this.job = null;
+
+        _this.$parent.$refs.index.getPeople(); // createComponent->PostComponent->IndexComponent->listOfPeople
+
       });
     }
   }
@@ -5405,6 +5408,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getPeople();
+    this.$parent.parentHelloWorld();
   },
   methods: {
     getPeople: function getPeople() {
@@ -5443,6 +5447,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     isEditId: function isEditId(id) {
       return this.editedPerson === id;
+    },
+    someMethod: function someMethod() {
+      console.log("Hello, World!");
     }
   }
 });
@@ -5476,6 +5483,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     CreateComponent: _CreateComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     IndexComponent: _IndexComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    console.log(this.$refs.index.someMethod());
+  },
+  methods: {
+    parentHelloWorld: function parentHelloWorld() {
+      console.log('Hello, World, from parent component!');
+    }
   }
 });
 
@@ -28683,7 +28698,11 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("CreateComponent"), _vm._v(" "), _c("IndexComponent")],
+    [
+      _c("CreateComponent"),
+      _vm._v(" "),
+      _c("IndexComponent", { ref: "index" }),
+    ],
     1
   )
 }
